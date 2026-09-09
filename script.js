@@ -14,7 +14,7 @@ const products = [
         name: "Yellow Baby Girl Dress",
         price: 1500,
         category: "dress",
-        image: "yellow-dress.jpg",
+        image: "picture/yellow-dress.jpg",
         rating: 5
     },
 
@@ -23,7 +23,7 @@ const products = [
         name: "Tulip Headband",
         price: 299,
         category: "accessories",
-        image: "headband.jpg",
+        image: "picture/headband.jpg",
         rating: 5
     },
 
@@ -32,7 +32,7 @@ const products = [
         name: "Crochet Hand Bag",
         price: 800,
         category: "bags",
-        image: "hand-bag.jpg",
+        image: "picture/hand-bag.jpg",
         rating: 5
     },
 
@@ -41,7 +41,7 @@ const products = [
         name: "Crochet Jellyfish",
         price: 100,
         category: "toys",
-        image: "jellyfish.jpg",
+        image: "picture/jellyfish.jpg",
         rating: 5
     }
 
