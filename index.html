@@ -407,6 +407,7 @@
 
     <div class="checkout-box">
 
+        <!-- CLOSE BUTTON -->
         <button
             type="button"
             class="close-modal"
@@ -416,25 +417,46 @@
             ✕
         </button>
 
-        <h2 id="checkoutTitle">
-            📦 Checkout
-        </h2>
 
-        <form id="checkoutForm">
+        <!-- ================= STEP 1 ================= -->
+
+        <div
+            class="checkout-step active"
+            id="addressStep"
+        >
+
+            <div class="checkout-progress">
+                <span class="progress-number active">1</span>
+                <span class="progress-line"></span>
+                <span class="progress-number">2</span>
+            </div>
+
+            <h2 id="checkoutTitle">
+                📍 Delivery Address
+            </h2>
+
+            <p class="checkout-subtitle">
+                Please enter your delivery details
+            </p>
+
+
+            <!-- NAME -->
 
             <label for="customerName">
-                Full Name
+                Name
             </label>
 
             <input
                 type="text"
                 id="customerName"
-                placeholder="Your name"
+                placeholder="Enter your name"
                 maxlength="100"
                 autocomplete="name"
                 required
             >
 
+
+            <!-- PHONE -->
 
             <label for="customerPhone">
                 Phone Number
@@ -444,12 +466,14 @@
                 type="tel"
                 id="customerPhone"
                 placeholder="10-digit phone number"
-                maxlength="15"
+                maxlength="10"
                 autocomplete="tel"
-                inputmode="tel"
+                inputmode="numeric"
                 required
             >
 
+
+            <!-- ADDRESS -->
 
             <label for="customerAddress">
                 Address
@@ -457,44 +481,162 @@
 
             <textarea
                 id="customerAddress"
-                placeholder="Delivery address"
+                placeholder="Enter your complete delivery address"
                 maxlength="500"
                 autocomplete="street-address"
                 required
             ></textarea>
 
 
-            <label for="paymentMethod">
-                Payment Method
-            </label>
-
-            <select id="paymentMethod">
-
-                <option value="cod">
-                    Cash on Delivery
-                </option>
-
-                <option value="upi">
-                    UPI
-                </option>
-
-            </select>
-
+            <!-- CONFIRM ADDRESS -->
 
             <button
-                type="submit"
+                type="button"
+                class="confirm-address"
+                id="confirmAddress"
+            >
+                Confirm Address ✓
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= STEP 2 ================= -->
+
+        <div
+            class="checkout-step"
+            id="paymentStep"
+        >
+
+            <div class="checkout-progress">
+                <span class="progress-number completed">✓</span>
+                <span class="progress-line completed"></span>
+                <span class="progress-number active">2</span>
+            </div>
+
+
+            <h2>
+                💳 Payment
+            </h2>
+
+            <p class="checkout-subtitle">
+                Choose your payment method
+            </p>
+
+
+            <!-- PAYMENT METHOD -->
+
+            <div class="payment-title">
+                Payment Method
+            </div>
+
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="cod"
+                    checked
+                >
+
+                <span class="payment-icon">
+                    💵
+                </span>
+
+                <span class="payment-text">
+                    <strong>COD</strong>
+                    <small>Cash on Delivery</small>
+                </span>
+
+            </label>
+
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="upi"
+                >
+
+                <span class="payment-icon">
+                    📱
+                </span>
+
+                <span class="payment-text">
+                    <strong>UPI</strong>
+                    <small>UPI Payment</small>
+                </span>
+
+            </label>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <div class="checkout-summary">
+
+                <div>
+                    <span>Customer</span>
+                    <strong id="summaryName">
+                        -
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Phone</span>
+                    <strong id="summaryPhone">
+                        -
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Address</span>
+                    <strong id="summaryAddress">
+                        -
+                    </strong>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <strong id="summaryTotal">
+                        ₹0
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- BACK BUTTON -->
+
+            <button
+                type="button"
+                class="back-address"
+                id="backAddress"
+            >
+                ← Back
+            </button>
+
+
+            <!-- PLACE ORDER -->
+
+            <button
+                type="button"
                 class="place-order"
+                id="placeOrder"
             >
                 Place Order ❤️
             </button>
 
-        </form>
+        </div>
 
     </div>
 
 </div>
 
+
 <script src="script.js" defer></script>
 
 </body>
-</html>
+    </html>
