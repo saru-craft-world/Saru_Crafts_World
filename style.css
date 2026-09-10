@@ -720,60 +720,467 @@ margin-bottom: 25px;
 
 }
 
-/* ================= CHECKOUT FORM ================= */
+/* =================================================
+   TWO STEP CHECKOUT
+================================================= */
+
+.checkout-step {
+    display: none;
+}
+
+.checkout-step.active {
+    display: block;
+}
+
+
+/* ================= CHECKOUT SUBTITLE ================= */
+
+.checkout-subtitle {
+    color: #777;
+    font-size: 14px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+
+/* ================= PROGRESS ================= */
+
+.checkout-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.progress-number {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eee;
+    color: #777;
+
+    font-weight: bold;
+}
+
+.progress-number.active,
+.progress-number.completed {
+    background: #8a2be2;
+    color: white;
+}
+
+.progress-line {
+    width: 70px;
+    height: 3px;
+    background: #ddd;
+}
+
+.progress-line.completed {
+    background: #8a2be2;
+}
+
+
+/* ================= LABELS ================= */
 
 .checkout-box label {
-display: block;
+    display: block;
 
-margin-top: 15px;  
+    margin-top: 16px;
+    margin-bottom: 7px;
 
-margin-bottom: 6px;  
-
-font-weight: bold;
-
+    font-weight: bold;
+    color: #4b315c;
 }
 
-.checkout-box input,
-.checkout-box textarea,
-.checkout-box select {
-width: 100%;
 
-padding: 12px;  
+/* ================= INPUTS ================= */
 
-border: 1px solid #ddd;  
+.checkout-box input[type="text"],
+.checkout-box input[type="tel"],
+.checkout-box textarea {
 
-border-radius: 8px;  
+    width: 100%;
 
-outline: none;
+    padding: 13px;
 
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    background: white;
+
+    color: #333;
+
+    transition: 0.2s;
 }
+
+
+.checkout-box input:focus,
+.checkout-box textarea:focus {
+
+    border-color: #8a2be2;
+
+    box-shadow:
+        0 0 0 3px rgba(138, 43, 226, 0.10);
+}
+
 
 .checkout-box textarea {
-min-height: 100px;
 
-resize: vertical;
+    min-height: 110px;
 
+    resize: vertical;
 }
 
+
+/* ================= CONFIRM ADDRESS ================= */
+
+.confirm-address {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background: #8a2be2;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.confirm-address:hover {
+
+    background: #7020bb;
+
+    transform: translateY(-2px);
+}
+
+
+/* ================= PAYMENT TITLE ================= */
+
+.payment-title {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+
+    color: #5c357b;
+}
+
+
+/* ================= PAYMENT OPTION ================= */
+
+.payment-option {
+
+    display: flex !important;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    margin: 10px 0 !important;
+
+    border: 2px solid #e5d8ef;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    background: white;
+}
+
+
+.payment-option:hover {
+
+    border-color: #8a2be2;
+
+    background: #faf5ff;
+}
+
+
+.payment-option input {
+
+    width: 18px !important;
+
+    height: 18px;
+
+    accent-color: #8a2be2;
+
+    cursor: pointer;
+}
+
+
+.payment-icon {
+
+    font-size: 25px;
+}
+
+
+.payment-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.payment-text strong {
+
+    font-size: 16px;
+
+    color: #4b315c;
+}
+
+
+.payment-text small {
+
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+/* ================= CHECKOUT SUMMARY ================= */
+
+.checkout-summary {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: #f8f1ff;
+
+    border: 1px solid #eadcff;
+}
+
+
+.checkout-summary > div {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 7px 0;
+
+    font-size: 14px;
+}
+
+
+.checkout-summary span {
+
+    color: #777;
+}
+
+
+.checkout-summary strong {
+
+    color: #4b315c;
+
+    text-align: right;
+
+    max-width: 65%;
+
+    word-break: break-word;
+}
+
+
+.checkout-summary .summary-total {
+
+    margin-top: 8px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid #ddd;
+
+    font-size: 18px;
+}
+
+
+.checkout-summary .summary-total strong {
+
+    color: #8a2be2;
+
+    font-size: 20px;
+}
+
+
+/* ================= BACK BUTTON ================= */
+
+.back-address {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border: 1px solid #8a2be2;
+
+    border-radius: 25px;
+
+    background: white;
+
+    color: #8a2be2;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.back-address:hover {
+
+    background: #f5ebff;
+}
+
+
+/* ================= PLACE ORDER ================= */
+
 .place-order {
-width: 100%;
 
-margin-top: 25px;  
+    width: 100%;
 
-padding: 14px;  
+    margin-top: 12px;
 
-border: none;  
+    padding: 14px;
 
-border-radius: 25px;  
+    border: none;
 
-background: #8a2be2;  
+    border-radius: 25px;
 
-color: white;  
+    background: #8a2be2;
 
-cursor: pointer;  
+    color: white;
 
-font-weight: bold;
+    cursor: pointer;
 
+    font-size: 16px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.place-order:hover {
+
+    background: #7020bb;
+
+    transform: translateY(-2px);
+}
+
+
+/* ================= DARK MODE ================= */
+
+body.dark .checkout-box input[type="text"],
+body.dark .checkout-box input[type="tel"],
+body.dark .checkout-box textarea {
+
+    background: #30243a;
+
+    color: white;
+
+    border-color: #5d476b;
+}
+
+
+body.dark .checkout-box label {
+
+    color: #eee;
+}
+
+
+body.dark .checkout-subtitle {
+
+    color: #bbb;
+}
+
+
+body.dark .payment-option {
+
+    background: #30243a;
+
+    border-color: #5d476b;
+}
+
+
+body.dark .payment-option:hover {
+
+    background: #382b44;
+
+    border-color: #8a2be2;
+}
+
+
+body.dark .payment-text strong {
+
+    color: white;
+}
+
+
+body.dark .checkout-summary {
+
+    background: #30243a;
+
+    border-color: #5d476b;
+}
+
+
+body.dark .checkout-summary strong {
+
+    color: white;
+}
+
+
+body.dark .checkout-summary .summary-total strong {
+
+    color: #c8a2ff;
+}
+
+
+body.dark .back-address {
+
+    background: #30243a;
+
+    color: #c8a2ff;
+
+    border-color: #8a2be2;
 }
 
 /* ================= DARK MODE ================= */
