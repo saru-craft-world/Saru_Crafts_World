@@ -1,7 +1,7 @@
 /* ==========================================
    SARU_CRAFT_WORLD
    COMPLETE E-COMMERCE JAVASCRIPT
-   WhatsApp Order System
+   2-STEP CHECKOUT + WHATSAPP ORDER SYSTEM
 ========================================== */
 
 
@@ -57,6 +57,15 @@ let wishlist =
     JSON.parse(localStorage.getItem("saruWishlist")) || [];
 
 
+/* ================= CHECKOUT CUSTOMER DATA ================= */
+
+let checkoutCustomer = {
+    name: "",
+    phone: "",
+    address: ""
+};
+
+
 /* ================= DOM ELEMENTS ================= */
 
 const productsGrid =
@@ -89,11 +98,49 @@ const wishlistItems =
 const checkoutModal =
     document.getElementById("checkoutModal");
 
-const checkoutForm =
-    document.getElementById("checkoutForm");
+
+/* ================= CHECKOUT ELEMENTS ================= */
+
+const addressStep =
+    document.getElementById("addressStep");
+
+const paymentStep =
+    document.getElementById("paymentStep");
+
+const customerName =
+    document.getElementById("customerName");
+
+const customerPhone =
+    document.getElementById("customerPhone");
+
+const customerAddress =
+    document.getElementById("customerAddress");
+
+const confirmAddress =
+    document.getElementById("confirmAddress");
+
+const backAddress =
+    document.getElementById("backAddress");
+
+const placeOrderButton =
+    document.getElementById("placeOrder");
+
+const summaryName =
+    document.getElementById("summaryName");
+
+const summaryPhone =
+    document.getElementById("summaryPhone");
+
+const summaryAddress =
+    document.getElementById("summaryAddress");
+
+const summaryTotal =
+    document.getElementById("summaryTotal");
 
 
-/* ================= SAVE DATA ================= */
+/* =================================================
+   SAVE DATA
+================================================= */
 
 function saveData() {
 
@@ -110,11 +157,14 @@ function saveData() {
 }
 
 
-/* ================= DISPLAY PRODUCTS ================= */
+/* =================================================
+   DISPLAY PRODUCTS
+================================================= */
 
 function displayProducts(list = products) {
 
     productsGrid.innerHTML = "";
+
 
     if (list.length === 0) {
 
@@ -136,11 +186,12 @@ function displayProducts(list = products) {
     list.forEach(product => {
 
         const isLiked =
-                wishlist.includes(product.id);
+            wishlist.includes(product.id);
 
 
         const card =
             document.createElement("div");
+
 
         card.className =
             "product-card";
@@ -161,7 +212,9 @@ function displayProducts(list = products) {
                 src="${product.image}"
                 alt="${product.name}"
                 class="product-image"
-                onerror="this.src='https://via.placeholder.com/400x400?text=Saru+Craft+World'"
+                onerror="
+                    this.src='https://via.placeholder.com/400x400?text=Saru+Craft+World'
+                "
             >
 
 
@@ -201,7 +254,9 @@ function displayProducts(list = products) {
 }
 
 
-/* ================= ADD TO CART ================= */
+/* =================================================
+   ADD TO CART
+================================================= */
 
 function addToCart(id) {
 
@@ -216,7 +271,6 @@ function addToCart(id) {
         alert("Product not found!");
 
         return;
-
     }
 
 
@@ -233,11 +287,8 @@ function addToCart(id) {
     } else {
 
         cart.push({
-
             id: id,
-
             quantity: 1
-
         });
 
     }
@@ -252,7 +303,9 @@ function addToCart(id) {
 }
 
 
-/* ================= UPDATE CART ================= */
+/* =================================================
+   UPDATE CART
+================================================= */
 
 function updateCart() {
 
@@ -368,7 +421,9 @@ function updateCart() {
 }
 
 
-/* ================= CHANGE QUANTITY ================= */
+/* =================================================
+   CHANGE QUANTITY
+================================================= */
 
 function changeQuantity(id, amount) {
 
@@ -401,7 +456,9 @@ function changeQuantity(id, amount) {
 }
 
 
-/* ================= REMOVE FROM CART ================= */
+/* =================================================
+   REMOVE FROM CART
+================================================= */
 
 function removeFromCart(id) {
 
@@ -418,7 +475,9 @@ function removeFromCart(id) {
 }
 
 
-/* ================= OPEN CART ================= */
+/* =================================================
+   OPEN CART
+================================================= */
 
 function openCart() {
 
@@ -433,7 +492,9 @@ function openCart() {
 }
 
 
-/* ================= CLOSE CART ================= */
+/* =================================================
+   CLOSE CART
+================================================= */
 
 function closeCart() {
 
@@ -448,7 +509,9 @@ function closeCart() {
 }
 
 
-/* ================= WISHLIST ================= */
+/* =================================================
+   WISHLIST
+================================================= */
 
 function toggleWishlist(id) {
 
@@ -475,7 +538,9 @@ function toggleWishlist(id) {
 }
 
 
-/* ================= UPDATE WISHLIST ================= */
+/* =================================================
+   UPDATE WISHLIST
+================================================= */
 
 function updateWishlist() {
 
@@ -495,7 +560,6 @@ function updateWishlist() {
         `;
 
         return;
-
     }
 
 
@@ -550,7 +614,9 @@ function updateWishlist() {
 }
 
 
-/* ================= SEARCH ================= */
+/* =================================================
+   SEARCH
+================================================= */
 
 const searchInput =
     document.getElementById(
@@ -583,7 +649,9 @@ searchInput.addEventListener(
 );
 
 
-/* ================= CATEGORY ================= */
+/* =================================================
+   CATEGORY
+================================================= */
 
 document
     .querySelectorAll(".category-btn")
@@ -592,6 +660,7 @@ document
         button.addEventListener(
             "click",
             function () {
+
 
                 document
                     .querySelectorAll(
@@ -639,13 +708,16 @@ document
     });
 
 
-/* ================= CHECKOUT BUTTON ================= */
+/* =================================================
+   CHECKOUT BUTTON
+================================================= */
 
 document
     .getElementById("checkoutBtn")
     .addEventListener(
         "click",
         function () {
+
 
             if (cart.length === 0) {
 
@@ -654,11 +726,25 @@ document
                 );
 
                 return;
-
             }
 
 
             closeCart();
+
+
+            /*
+                Always start checkout
+                from Step 1.
+            */
+
+            addressStep.classList.add(
+                "active"
+            );
+
+
+            paymentStep.classList.remove(
+                "active"
+            );
 
 
             checkoutModal.classList.add(
@@ -670,54 +756,20 @@ document
 
 
 /* =================================================
-   WHATSAPP ORDER SYSTEM
+   STEP 1
+   CONFIRM ADDRESS
 ================================================= */
 
-checkoutForm.addEventListener(
-    "submit",
-    function(event) {
-
-        event.preventDefault();
+confirmAddress.addEventListener(
+    "click",
+    function () {
 
 
-        /* ================= CUSTOMER DETAILS ================= */
+        /* ================= NAME ================= */
 
         const name =
-            document
-                .getElementById(
-                    "customerName"
-                )
-                .value
-                .trim();
+            customerName.value.trim();
 
-
-        const phone =
-            document
-                .getElementById(
-                    "customerPhone"
-                )
-                .value
-                .trim();
-
-
-        const address =
-            document
-                .getElementById(
-                    "customerAddress"
-                )
-                .value
-                .trim();
-
-
-        const payment =
-            document
-                .getElementById(
-                    "paymentMethod"
-                )
-                .value;
-
-
-        /* ================= VALIDATION ================= */
 
         if (!name) {
 
@@ -725,20 +777,39 @@ checkoutForm.addEventListener(
                 "Please enter your name."
             );
 
-            return;
+            customerName.focus();
 
+            return;
         }
 
 
-        if (!phone) {
+        /* ================= PHONE ================= */
+
+        const phone =
+            customerPhone.value.trim();
+
+
+        /*
+            Indian 10-digit mobile number.
+            Starts with 6, 7, 8 or 9.
+        */
+
+        if (!/^[6-9][0-9]{9}$/.test(phone)) {
 
             alert(
-                "Please enter your phone number."
+                "Please enter a valid 10-digit phone number."
             );
 
-            return;
+            customerPhone.focus();
 
+            return;
         }
+
+
+        /* ================= ADDRESS ================= */
+
+        const address =
+            customerAddress.value.trim();
 
 
         if (!address) {
@@ -747,10 +818,122 @@ checkoutForm.addEventListener(
                 "Please enter your delivery address."
             );
 
-            return;
+            customerAddress.focus();
 
+            return;
         }
 
+
+        /* ================= SAVE CUSTOMER ================= */
+
+        checkoutCustomer = {
+
+            name: name,
+
+            phone: phone,
+
+            address: address
+
+        };
+
+
+        /* ================= SHOW SUMMARY ================= */
+
+        summaryName.textContent =
+            checkoutCustomer.name;
+
+
+        summaryPhone.textContent =
+            checkoutCustomer.phone;
+
+
+        summaryAddress.textContent =
+            checkoutCustomer.address;
+
+
+        summaryTotal.textContent =
+            `₹${getCartTotal().toLocaleString("en-IN")}`;
+
+
+        /* ================= GO TO STEP 2 ================= */
+
+        addressStep.classList.remove(
+            "active"
+        );
+
+
+        paymentStep.classList.add(
+            "active"
+        );
+
+    }
+);
+
+
+/* =================================================
+   GET CART TOTAL
+================================================= */
+
+function getCartTotal() {
+
+    let total = 0;
+
+
+    cart.forEach(item => {
+
+        const product =
+            products.find(
+                p => p.id === item.id
+            );
+
+
+        if (!product) return;
+
+
+        total +=
+            product.price *
+            item.quantity;
+
+    });
+
+
+    return total;
+
+}
+
+
+/* =================================================
+   BACK TO ADDRESS
+================================================= */
+
+backAddress.addEventListener(
+    "click",
+    function () {
+
+        paymentStep.classList.remove(
+            "active"
+        );
+
+
+        addressStep.classList.add(
+            "active"
+        );
+
+    }
+);
+
+
+/* =================================================
+   PLACE ORDER
+   WHATSAPP
+================================================= */
+
+placeOrderButton.addEventListener(
+    "click",
+    function () {
+
+
+        /* ================= CART CHECK ================= */
 
         if (cart.length === 0) {
 
@@ -759,14 +942,41 @@ checkoutForm.addEventListener(
             );
 
             return;
-
         }
+
+
+        /* ================= PAYMENT ================= */
+
+        const selectedPayment =
+            document.querySelector(
+                'input[name="paymentMethod"]:checked'
+            );
+
+
+        if (!selectedPayment) {
+
+            alert(
+                "Please select a payment method."
+            );
+
+            return;
+        }
+
+
+        const payment =
+            selectedPayment.value;
 
 
         /* ================= WHATSAPP NUMBER ================= */
 
         const whatsappNumber =
-            "7025337305";
+            "917025337305";
+
+
+        /*
+            91 = India country code
+            7025337305 = your WhatsApp number
+        */
 
 
         /* ================= ORDER ID ================= */
@@ -778,7 +988,12 @@ checkoutForm.addEventListener(
                 .slice(-6);
 
 
-        /* ================= CREATE MESSAGE ================= */
+        /* ================= TOTAL ================= */
+
+        let total = 0;
+
+
+        /* ================= MESSAGE ================= */
 
         let message =
             "🧶 SARU_CRAFT_WORLD - NEW ORDER ❤️\n\n";
@@ -790,23 +1005,27 @@ checkoutForm.addEventListener(
             "\n\n";
 
 
+        /* ================= CUSTOMER ================= */
+
         message +=
             "👤 Customer: " +
-            name +
+            checkoutCustomer.name +
             "\n";
 
 
         message +=
             "📱 Phone: " +
-            phone +
+            checkoutCustomer.phone +
             "\n";
 
 
         message +=
             "📍 Address: " +
-            address +
+            checkoutCustomer.address +
             "\n\n";
 
+
+        /* ================= ORDER DETAILS ================= */
 
         message +=
             "🛍️ ORDER DETAILS\n";
@@ -814,9 +1033,6 @@ checkoutForm.addEventListener(
 
         message +=
             "--------------------------\n";
-
-
-        let total = 0;
 
 
         cart.forEach(item => {
@@ -835,7 +1051,8 @@ checkoutForm.addEventListener(
                 item.quantity;
 
 
-            total += itemTotal;
+            total +=
+                itemTotal;
 
 
             message +=
@@ -852,6 +1069,8 @@ checkoutForm.addEventListener(
         });
 
 
+        /* ================= TOTAL ================= */
+
         message +=
             "--------------------------\n";
 
@@ -864,15 +1083,31 @@ checkoutForm.addEventListener(
             "\n";
 
 
+        /* ================= PAYMENT ================= */
+
+        let paymentText;
+
+
+        if (payment === "cod") {
+
+            paymentText =
+                "Cash on Delivery";
+
+        } else {
+
+            paymentText =
+                "UPI";
+
+        }
+
+
         message +=
             "💳 Payment: " +
-            (
-                payment === "cod"
-                    ? "Cash on Delivery"
-                    : "UPI"
-            ) +
+            paymentText +
             "\n\n";
 
+
+        /* ================= FINAL MESSAGE ================= */
 
         message +=
             "Thank you for ordering from " +
@@ -899,19 +1134,19 @@ checkoutForm.addEventListener(
 
 
         /*
-        IMPORTANT:
+            Cart is intentionally NOT cleared.
 
-        Cart is NOT cleared here.
-
-        Customer can return to the website
-        after sending the WhatsApp message.
+            This allows the customer to return
+            to the website after WhatsApp opens.
         */
 
     }
 );
 
 
-/* ================= CART BUTTON ================= */
+/* =================================================
+   CART BUTTON
+================================================= */
 
 document
     .getElementById("cartBtn")
@@ -921,7 +1156,9 @@ document
     );
 
 
-/* ================= CLOSE CART ================= */
+/* =================================================
+   CLOSE CART
+================================================= */
 
 document
     .getElementById("closeCart")
@@ -931,7 +1168,9 @@ document
     );
 
 
-/* ================= OVERLAY ================= */
+/* =================================================
+   OVERLAY
+================================================= */
 
 overlay.addEventListener(
     "click",
@@ -939,7 +1178,9 @@ overlay.addEventListener(
 );
 
 
-/* ================= WISHLIST BUTTON ================= */
+/* =================================================
+   WISHLIST BUTTON
+================================================= */
 
 document
     .getElementById("wishlistBtn")
@@ -958,7 +1199,9 @@ document
     );
 
 
-/* ================= CLOSE WISHLIST ================= */
+/* =================================================
+   CLOSE WISHLIST
+================================================= */
 
 document
     .getElementById("closeWishlist")
@@ -974,7 +1217,9 @@ document
     );
 
 
-/* ================= CLOSE CHECKOUT ================= */
+/* =================================================
+   CLOSE CHECKOUT
+================================================= */
 
 document
     .getElementById("closeCheckout")
@@ -990,7 +1235,9 @@ document
     );
 
 
-/* ================= MOBILE MENU ================= */
+/* =================================================
+   MOBILE MENU
+================================================= */
 
 document
     .getElementById("menuBtn")
@@ -999,9 +1246,7 @@ document
         function () {
 
             document
-                .getElementById(
-                    "navbar"
-                )
+                .getElementById("navbar")
                 .classList.toggle(
                     "active"
                 );
@@ -1010,7 +1255,9 @@ document
     );
 
 
-/* ================= DARK MODE ================= */
+/* =================================================
+   DARK MODE
+================================================= */
 
 const darkModeBtn =
     document.getElementById(
@@ -1021,6 +1268,7 @@ const darkModeBtn =
 darkModeBtn.addEventListener(
     "click",
     function () {
+
 
         document
             .body
@@ -1037,6 +1285,7 @@ darkModeBtn.addEventListener(
             this.textContent =
                 "☀️";
 
+
             localStorage.setItem(
                 "saruDarkMode",
                 "true"
@@ -1046,6 +1295,7 @@ darkModeBtn.addEventListener(
 
             this.textContent =
                 "🌙";
+
 
             localStorage.setItem(
                 "saruDarkMode",
@@ -1058,7 +1308,9 @@ darkModeBtn.addEventListener(
 );
 
 
-/* ================= LOAD DARK MODE ================= */
+/* =================================================
+   LOAD DARK MODE
+================================================= */
 
 const savedDarkMode =
     localStorage.getItem(
@@ -1080,7 +1332,9 @@ if (savedDarkMode === "true") {
 }
 
 
-/* ================= INITIAL LOAD ================= */
+/* =================================================
+   INITIAL LOAD
+================================================= */
 
 displayProducts();
 
